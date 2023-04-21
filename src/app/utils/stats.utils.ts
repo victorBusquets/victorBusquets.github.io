@@ -20,32 +20,31 @@ export class StatsUtils {
         globalStats.losses += singleGameStats.losses;
         globalStats.averagePointsConceded += singleGameStats.averagePointsConceded;
         globalStats.averagePointsScored += singleGameStats.averagePointsScored;
-        globalStats.lastGames.push(singleGameStats.wins ? 'W' : 'L');
+        globalStats.lastGamesWon.push(Boolean(singleGameStats.wins));
     }
 
     private getSingleGameStats(team: TeamInterface, game: GameInterface): StatsModel {
-        const stats: StatsModel = new StatsModel();
-        
-        if (game.home_team.id === team.id) {
-          stats.averagePointsScored = game.home_team_score;
-          stats.averagePointsConceded = game.visitor_team_score;
-          if (game.home_team_score > game.visitor_team_score) {
-            stats.wins +=1;
-          } else {
-            stats.losses += 1;
-          }
-        }
-        if (game.visitor_team.id === team.id) {
-          stats.averagePointsScored = game.visitor_team_score;
-          stats.averagePointsConceded = game.home_team_score;
-          if (game.visitor_team_score > game.home_team_score) {
-            stats.wins = 1;
-          } else {
-            stats.losses = 1;
-          }
-        }
+      const stats: StatsModel = new StatsModel();
+      const {visitor_team_score: visitorScore, home_team_score: homeScore} = game;
 
-        
-        return stats;
+      if (game.home_team.id === team.id) {
+        this.addSingleGameStats(homeScore, visitorScore, stats)
       }
+      if (game.visitor_team.id === team.id) {
+        this.addSingleGameStats(visitorScore, homeScore, stats)
+      }
+
+      return stats;
+    }
+
+    private addSingleGameStats(teamScore: number, rivalScore: number, stats: StatsModel): void {
+      stats.averagePointsScored = teamScore;
+      stats.averagePointsConceded = rivalScore;
+
+      if (teamScore > rivalScore) {
+        stats.wins = 1;
+      } else {
+        stats.losses = 1;
+      }
+    }
 }
