@@ -1,0 +1,46 @@
+<div class="card">
+  <div>
+    <h3>{{team.full_name}} [{{team.abbreviation}}] <span class="close" (click)="showModal()">&times;</span></h3>
+    <h6>{{team.conference}}ern conference</h6>
+  </div>
+  <hr/>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <p>
+          Results of past {{displayedDays}} days:
+        </p>
+        <ng-container *ngIf="stats; else loadingTemplate">
+          <p>
+            <span class="tag"
+              *ngFor="let result of stats.lastGames; trackBy: trackByIndex"
+              [class]="result">{{result}}</span>
+          </p>
+          <p>Avg pts scored: <strong>{{stats.averagePointsScored}}</strong> </p>
+          <p>Avg pts conceded: <strong>{{stats.averagePointsConceded}}</strong> </p>
+        </ng-container>
+      </div>
+      <div class="col-sm-6">
+        <img alt="Team logo" [src]="teamLogo" />
+      </div>
+    </div>
+  </div>
+  <div>
+    <button class="tertiary" [routerLink]="['/', appRoutes.results, team.id, appRoutes.days, displayedDays]">See game results >></button>
+  </div>
+
+</div>
+
+<dialog class="custom-dialog" appDialog #confirmDialog>
+  <div dialog-content>
+    <p>Are you sure you want to remove this team?</p>
+  </div>
+  <div dialog-actions>
+    <button (click)="closeModal()">No</button>
+    <button (click)="removeTrackedTeam(team)">Yes</button>
+  </div>
+</dialog>
+
+<ng-template #loadingTemplate>
+  <app-spinner [darkMode]="true"></app-spinner>
+</ng-template>

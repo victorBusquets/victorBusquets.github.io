@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-sm-12">
+    <form class="custom-form" [formGroup]="filtersForm">
+      <select formControlName="conference">
+        <option value="">Select a conference</option>
+        <option [value]="conference.id" *ngFor="let conference of conferences; trackBy: trackByIndex">
+          {{conference.name}}
+        </option>
+      </select>
+
+      <select formControlName="division">
+        <option value="">Select a division</option>
+        <option [value]="division.id" *ngFor="let division of divisions; trackBy: trackByIndex">
+          {{division.name}}
+        </option>
+      </select>
+      
+      <select formControlName="team">
+        <option [value]="team.id" *ngFor="let team of teams; trackBy: trackByIndex">
+          {{team.full_name}}
+        </option>
+      </select>
+
+      <div class="displayed-days">
+        <span>Show</span>
+        <select formControlName="displayedDays">
+          <option [value]="displayDayOption" *ngFor="let displayDayOption of displayDayOptions; trackBy: trackByIndex">
+            {{displayDayOption}}
+          </option>
+        </select>
+        <span>days</span>
+      </div>
+      
+      <button class="primary" (click)="trackTeam()">Track team</button>
+      <button class="secondary" (click)="clearFilters()">Clear filters</button>
+    </form>
+  </div>
+</div>

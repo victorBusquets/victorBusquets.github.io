@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/mini.css/dist/mini-default.min.css";
+
+dialog.custom-dialog{
+    border: unset;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px 30px;
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
+}
+
+form.custom-form{
+    background: inherit;
+    color: inherit;
+    border: unset;
+    border-radius: unset;
+    margin: unset;
+    padding: unset;
+}

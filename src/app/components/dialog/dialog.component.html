@@ -1,0 +1,9 @@
+<div>
+    <div class="dialog-close" (click)="closeModal()">&times;</div>
+    <div class="dialog-content">
+        <ng-content select="[dialog-content]"></ng-content>
+    </div>
+    <div class="dialog-actions">
+        <ng-content select="[dialog-actions]"></ng-content>
+    </div>
+</div>

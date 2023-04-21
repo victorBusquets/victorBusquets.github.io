@@ -1,0 +1,8 @@
+.displayed-days{
+    display: inline-block;
+    padding: 0 1rem;
+}
+
+.displayed-days select{
+    margin: 0 1rem;
+}

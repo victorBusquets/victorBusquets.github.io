@@ -1,0 +1,25 @@
+<div class="card">
+  <ng-container *ngIf="team; else loadingTemplate">
+    <h3>{{team.full_name}} [{{team.abbreviation}}]</h3>
+    <h6>{{team.conference}}ern conference</h6>
+    <hr/>
+    <p>
+      Scores of past {{displayedDays}} days:
+    </p>
+
+    <ng-container *ngIf="games$ | async as games; else loadingTemplate">
+      <p *ngFor="let game of games; trackBy: trackByIndex">
+        <strong>{{game.home_team.abbreviation}}</strong> 
+        <span>{{game.home_team_score}} - {{game.visitor_team_score}} </span>
+        <strong>{{game.visitor_team.abbreviation}}</strong>
+      </p>
+    </ng-container>
+  </ng-container>
+
+  <button class="tertiary" [routerLink]="['/', appRoutes.stats]"><< Back to all team stats</button>
+</div>
+
+
+<ng-template #loadingTemplate>
+  <app-spinner [darkMode]="true"></app-spinner>
+</ng-template>
