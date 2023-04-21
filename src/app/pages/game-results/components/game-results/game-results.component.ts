@@ -35,11 +35,11 @@ export class GameResultsComponent extends SubscriptionsBaseComponent {
         if (displayedDays) {
           this.displayedDays = +displayedDays;
         }
-        this.getTeamDetail(teamId);      
+        this.getTeamDetail(+teamId);      
       });
   }
 
-  private getTeamDetail(teamId: string): void {
+  private getTeamDetail(teamId: number): void {
     this.nbaService.getTeamById(teamId)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((team)=>{

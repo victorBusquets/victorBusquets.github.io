@@ -6,6 +6,7 @@ import { TEAM_MOCK } from '@mock/team.mock';
 import { of } from 'rxjs';
 import { GAME_MOCK } from '@mock/game.mock';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SpinnerModule } from '@components/spinner/spinner.module';
 
 describe('GameResultsComponent', () => {
   let component: GameResultsComponent;
@@ -15,7 +16,7 @@ describe('GameResultsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ GameResultsComponent ],
-      imports: [ RouterTestingModule, HttpClientTestingModule ]
+      imports: [ RouterTestingModule, HttpClientTestingModule, SpinnerModule ]
     })
     .compileComponents();
 
@@ -29,7 +30,7 @@ describe('GameResultsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('shpuld call getLastResults on getTeamById response', () => {
+  it('should call getLastResults on getTeamById response', () => {
     const spy = spyOn(nbaService, 'getLastResults').and.returnValue(of([GAME_MOCK]));
     spyOn(nbaService, 'getTeamById').and.returnValue(of(TEAM_MOCK));
     

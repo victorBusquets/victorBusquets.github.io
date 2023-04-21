@@ -11,7 +11,7 @@ export class DialogComponent {
     return this.element.nativeElement;
   }
 
-  constructor(private element: ElementRef) {}
+  constructor(public element: ElementRef) {}
 
   showModal() {
     this.nativeElement.showModal();

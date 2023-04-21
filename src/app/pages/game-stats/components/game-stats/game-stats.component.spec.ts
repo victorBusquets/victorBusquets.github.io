@@ -22,4 +22,10 @@ describe('GameStatsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('setDisplayedDays should set displayedDays', () => {
+    const displayedDays = 10;
+    component.setDisplayedDays(displayedDays);
+    expect(component.displayedDays).toEqual(displayedDays);
+  });
 });

@@ -1,29 +1,35 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TeamStatsComponent } from './team-stats.component';
-import { TEAM_2_MOCK, TEAM_MOCK } from '@mock/team.mock';
 import { DialogModule } from '@components/dialog/dialog.module';
 import { NbaService } from '@services/nba.service';
+import { TEAM_MOCK } from '@mock/team.mock';
 import { GAME_MOCK } from '@mock/game.mock';
+import { STATS_MOCK } from '@mock/stats.mock';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SimpleChange } from '@angular/core';
+import { TrackedTeamsService } from '@services/tracked-teams.service';
+import { SpinnerModule } from '@components/spinner/spinner.module';
 
-fdescribe('TeamStatsComponent', () => {
+describe('TeamStatsComponent', () => {
   let component: TeamStatsComponent;
   let fixture: ComponentFixture<TeamStatsComponent>;
   let nbaService: NbaService;
+  let trackedTeamsService: TrackedTeamsService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ TeamStatsComponent],
-      imports: [ HttpClientTestingModule, DialogModule, RouterTestingModule ]
+      imports: [ HttpClientTestingModule, DialogModule, RouterTestingModule, SpinnerModule]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(TeamStatsComponent);
     component = fixture.componentInstance;
     nbaService = TestBed.inject(NbaService);
+    trackedTeamsService = TestBed.inject(TrackedTeamsService);
+
     component.team = TEAM_MOCK;
     spyOn(nbaService, 'getLastResults').and.returnValue(of([GAME_MOCK]));
     fixture.detectChanges();
@@ -47,24 +53,25 @@ fdescribe('TeamStatsComponent', () => {
   });
 
   it('removeTrackedTeam should call removeTrackedTeam from nbaService', () => {
-    const spy = spyOn(nbaService, 'removeTrackedTeam').and.returnValue(void 0);
+    const spy = spyOn(trackedTeamsService, 'removeTrackedTeam').and.returnValue(void 0);
     
     component.removeTrackedTeam(TEAM_MOCK);
     expect(spy).toHaveBeenCalled();
   });
 
-  it('on component init should set team logo', ()=> {
-    const expectedLogo = `https://interstate21.com/nba-logos/${TEAM_MOCK.abbreviation}.png`;
-    expect(component.teamLogo).toEqual(expectedLogo);
+  it('on team changes should update team logo', ()=> {
+    component.ngOnChanges({team: new SimpleChange(null, TEAM_MOCK, true)});
+    fixture.detectChanges();
+    const updatedLogo = `https://interstate21.com/nba-logos/${TEAM_MOCK.abbreviation}.png`;
+    expect(component.teamLogo).toEqual(updatedLogo);
   });
 
-  it('on team changes should update team logo', ()=> {
-    const expectedLogo = `https://interstate21.com/nba-logos/${TEAM_MOCK.abbreviation}.png`;
-    expect(component.teamLogo).toEqual(expectedLogo);
-    component.ngOnChanges({team: new SimpleChange(null, TEAM_2_MOCK, true)});
+  it('on displayedDays changes should call getLastResultsStats and set stats', ()=> {
+    const spy = spyOn(nbaService, 'getLastResultsStats').and.returnValue(of(STATS_MOCK));
+    const displayedDays: number = 10;
+    component.ngOnChanges({displayedDays: new SimpleChange(null, displayedDays, true)});
     fixture.detectChanges();
-    const updatedLogo = `https://interstate21.com/nba-logos/${TEAM_2_MOCK.abbreviation}.png`;
-    expect(component.teamLogo).toEqual(updatedLogo);
-
-  })
+    expect(spy).toHaveBeenCalled();
+    expect(component.stats).toEqual(STATS_MOCK)
+  });
 });

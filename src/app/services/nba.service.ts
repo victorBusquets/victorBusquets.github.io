@@ -34,7 +34,7 @@ export class NbaService {
       this.filterTeams(selectedConference, selectedDivision);
   }
 
-  getTeamById(id: string): Observable<TeamInterface> {
+  getTeamById(id: number): Observable<TeamInterface> {
     return this.httpClient.get<TeamInterface>(`${API_ROUTES.getTeams}/${id}`);
   }
 

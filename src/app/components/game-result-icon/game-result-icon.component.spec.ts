@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GameResultIconComponent } from './game-result-icon.component';
+import { SimpleChange } from '@angular/core';
 
 
-fdescribe('GameResultIconComponent', () => {
+describe('GameResultIconComponent', () => {
   let component: GameResultIconComponent;
   let fixture: ComponentFixture<GameResultIconComponent>;
 
@@ -21,5 +22,13 @@ fdescribe('GameResultIconComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
+  it('component win input changes should set resultLabel', () => {
+    expect(component.resultLabel).toBeUndefined();
+    component.ngOnChanges({win: new SimpleChange(null, true, true)});
+    fixture.detectChanges();
+    expect(component.resultLabel).toBe('W');
+    component.ngOnChanges({win: new SimpleChange(null, false, true)});
+    fixture.detectChanges();
+    expect(component.resultLabel).toBe('L');
+  });
 });
