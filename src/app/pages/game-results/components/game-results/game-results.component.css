@@ -1,0 +1,13 @@
+.game-result{
+    padding: .5rem;
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
+    border-bottom: solid 1px rgb(0 0 0 / 20%);
+    margin: 0 1rem;
+}
+
+.game-result.last {
+    border-bottom-width: 0px;
+    margin-bottom: 1rem;
+}

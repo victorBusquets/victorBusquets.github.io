@@ -11,11 +11,11 @@
           Results of past {{displayedDays}} days:
         </p>
         <ng-container *ngIf="stats; else loadingTemplate">
-          <p>
-            <span class="tag"
-              *ngFor="let result of stats.lastGames; trackBy: trackByIndex"
-              [class]="result">{{result}}</span>
-          </p>
+          <div>
+            <app-game-result-icon
+              [win]="result"
+              *ngFor="let result of stats.lastGamesWon; trackBy: trackByIndex"></app-game-result-icon>
+          </div>
           <p>Avg pts scored: <strong>{{stats.averagePointsScored}}</strong> </p>
           <p>Avg pts conceded: <strong>{{stats.averagePointsConceded}}</strong> </p>
         </ng-container>

@@ -8,11 +8,16 @@
     </p>
 
     <ng-container *ngIf="games$ | async as games; else loadingTemplate">
-      <p *ngFor="let game of games; trackBy: trackByIndex">
+      <div class="game-result"
+        [ngClass]="{'last': last}"
+        *ngFor="let game of games; let last = last; trackBy: trackByIndex">
+        
+        <app-game-result-icon [win]="game.home_team_score > game.visitor_team_score"></app-game-result-icon>
         <strong>{{game.home_team.abbreviation}}</strong> 
         <span>{{game.home_team_score}} - {{game.visitor_team_score}} </span>
         <strong>{{game.visitor_team.abbreviation}}</strong>
-      </p>
+        <app-game-result-icon [win]="game.home_team_score < game.visitor_team_score"></app-game-result-icon>
+      </div>
     </ng-container>
   </ng-container>
 

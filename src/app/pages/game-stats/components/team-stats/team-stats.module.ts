@@ -4,10 +4,11 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "@components/dialog/dialog.module";
 import { SpinnerModule } from "@components/spinner/spinner.module";
+import { GameResultIconModule } from "@components/game-result-icon/game-result-icon.module";
 
 @NgModule({
     declarations: [TeamStatsComponent],
     exports: [TeamStatsComponent],
-    imports: [RouterModule, CommonModule, DialogModule, SpinnerModule]
+    imports: [RouterModule, CommonModule, DialogModule, SpinnerModule, GameResultIconModule]
 })
 export class TeamStatsModule { }
