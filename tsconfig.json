@@ -33,7 +33,8 @@
       "@pages/*": ["src/app/pages/*"],
       "@pipes/*": ["src/app/pipes/*"],
       "@services/*": ["src/app/services/*"],
-      "@mock/*": ["src/app/mock/*"]
+      "@mock/*": ["src/app/mock/*"],
+      "@utils/*": ["src/app/utils/*"]
     }
   },
   "angularCompilerOptions": {

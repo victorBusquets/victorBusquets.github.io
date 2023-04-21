@@ -5,18 +5,19 @@ import { TeamInterface } from '@interfaces/team.interface';
 import { GameInterface } from '@interfaces/game.interface';
 import { MetaResponse } from '@interfaces/meta-response.interface';
 import { API_ROUTES } from '@constants/api-routes.const';
-import { DateUtils } from '../utils/date.utils';
+import { DateUtils } from '@utils/date.utils';
 import { DivisionInterface } from '@interfaces/division.interface';
 import { DIVISION_OPTIONS } from '@constants/division.const';
 import { CONFERENCE_OPTIONS } from '@constants/conference.const';
 import { ConferenceInterface } from '@interfaces/conference.interface';
-import { StatsUtils } from '../utils/stats.utils';
+import { StatsUtils } from '@utils/stats.utils';
 import { StatsModel } from '@models/stats.class';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NbaService {
+  private dateUtils = new DateUtils();
   private statUtils = new StatsUtils();
   private teams$!: BehaviorSubject<TeamInterface[] | null>;
   private conferences: ConferenceInterface[] = CONFERENCE_OPTIONS;
@@ -38,7 +39,7 @@ export class NbaService {
   }
 
   getLastResults(team: TeamInterface, numberOfDays: number ): Observable<GameInterface[]> {
-    const previousDays: string[] = DateUtils.getPreviousDays(numberOfDays);
+    const previousDays: string[] = this.dateUtils.getPreviousDays(numberOfDays);
     let params: HttpParams = new HttpParams({
       fromObject: {
         'dates': previousDays
