@@ -42,6 +42,7 @@ export class TeamStatsComponent extends SubscriptionsBaseComponent implements On
   }
 
   removeTrackedTeam(team: TeamInterface): void {
+    this.closeModal();
     this.trackedTeamsService.removeTrackedTeam(team);
   }
 
