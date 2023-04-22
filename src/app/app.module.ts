@@ -16,8 +16,8 @@ import { ApiHeadersInterceptor } from './interceptors/api-headers.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiHeadersInterceptor,
-      multi: true,
-    },
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
