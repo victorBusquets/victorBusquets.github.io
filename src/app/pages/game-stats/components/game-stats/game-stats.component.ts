@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-game-stats',
-  templateUrl: './game-stats.component.html',
-  styleUrls: ['./game-stats.component.css']
+  templateUrl: './game-stats.component.html'
 })
 export class GameStatsComponent {
   trackedTeams$!: Observable<TeamInterface[]>;
