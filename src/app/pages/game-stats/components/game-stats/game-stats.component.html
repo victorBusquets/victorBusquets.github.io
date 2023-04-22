@@ -1,6 +1,6 @@
 <app-game-stats-filters (displayedDaysChanged)="setDisplayedDays($event)"></app-game-stats-filters>
 <div class="row">
-  <app-team-stats class="col-sm-4"
+  <app-team-stats class="col-md-4 col-12"
     *ngFor="let team of trackedTeams$ | async; trackBy: trackByIndex"
     [displayedDays]="displayedDays"
     [team]="team"></app-team-stats>
